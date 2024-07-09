@@ -1,4 +1,5 @@
 import {createContext, type ReactNode, useContext, useState} from 'react';
+import {Sheet, SheetContent, SheetHeader} from './ui/sheet';
 
 type AsideType = 'search' | 'cart' | 'mobile' | 'closed';
 type AsideContextValue = {
@@ -27,25 +28,15 @@ export function Aside({
   heading: React.ReactNode;
 }) {
   const {type: activeType, close} = useAside();
-  const expanded = type === activeType;
-
   return (
-    <div
-      aria-modal
-      className={`overlay ${expanded ? 'expanded' : ''}`}
-      role="dialog"
-    >
-      <button className="close-outside" onClick={close} />
-      <aside>
-        <header>
+    <Sheet aria-modal open={activeType === type} onOpenChange={close}>
+      <SheetContent>
+        <SheetHeader>
           <h3>{heading}</h3>
-          <button className="close reset" onClick={close}>
-            &times;
-          </button>
-        </header>
+        </SheetHeader>
         <main>{children}</main>
-      </aside>
-    </div>
+      </SheetContent>
+    </Sheet>
   );
 }
 

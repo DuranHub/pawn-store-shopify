@@ -21,9 +21,14 @@ export function Header({
 }: HeaderProps) {
   const {shop, menu} = header;
   return (
-    <header className="header">
-      <NavLink prefetch="intent" to="/" style={activeLinkStyle} end>
-        <strong>{shop.name}</strong>
+    <header className="flex items-center justify-center w-full">
+      <NavLink
+        prefetch="intent"
+        to="/"
+        className="text-primary font-bold mr-4"
+        end
+      >
+        <strong className="text-xl">{shop.name}</strong>
       </NavLink>
       <HeaderMenu
         menu={menu}
@@ -57,7 +62,7 @@ export function HeaderMenu({
   }
 
   return (
-    <nav className={className} role="navigation">
+    <nav className={`${className} flex gap-5`} role="navigation">
       {viewport === 'mobile' && (
         <NavLink
           end
@@ -102,7 +107,7 @@ function HeaderCtas({
   cart,
 }: Pick<HeaderProps, 'isLoggedIn' | 'cart'>) {
   return (
-    <nav className="header-ctas" role="navigation">
+    <nav className="flex ml-auto gap-4" role="navigation">
       <HeaderMenuMobileToggle />
       <NavLink prefetch="intent" to="/account" style={activeLinkStyle}>
         <Suspense fallback="Sign in">
@@ -120,10 +125,7 @@ function HeaderCtas({
 function HeaderMenuMobileToggle() {
   const {open} = useAside();
   return (
-    <button
-      className="header-menu-mobile-toggle reset"
-      onClick={() => open('mobile')}
-    >
+    <button className="md:hidden reset" onClick={() => open('mobile')}>
       <h3>☰</h3>
     </button>
   );
