@@ -74,3 +74,13 @@
       @apply bg-background text-foreground;
     }
   }
+
+  @layer components{
+    .menuHome{
+      @apply bg-indigo-100 w-full h-10 shadow-2xl ;
+    }
+  }
+
+
+
+ 
