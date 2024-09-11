@@ -4,6 +4,7 @@ import {type CartViewPayload, useAnalytics} from '@shopify/hydrogen';
 import type {HeaderQuery, CartApiQueryFragment} from 'storefrontapi.generated';
 import {useAside} from '~/components/Aside';
 
+
 interface HeaderProps {
   header: HeaderQuery;
   cart: Promise<CartApiQueryFragment | null>;
@@ -21,24 +22,31 @@ export function Header({
 }: HeaderProps) {
   const {shop, menu} = header;
   return (
-    <header className="flex items-center justify-center w-full">
+    <div className=' w-full  space-y-4'> 
+    <header className="flex items-center justify-center ">
       <NavLink
         prefetch="intent"
         to="/"
         className="text-primary font-bold mr-4"
         end
       >
-        <strong className="text-xl">{shop.name}</strong>
+        <strong className="font-helveticaNow">{shop.name}</strong>
       </NavLink>
+      
+      <HeaderCtas isLoggedIn={isLoggedIn} cart={cart} />
+    </header>
+    <div className='menuHome pt-2 flex justify-center'>
+        
       <HeaderMenu
         menu={menu}
         viewport="desktop"
         primaryDomainUrl={header.shop.primaryDomain.url}
         publicStoreDomain={publicStoreDomain}
       />
-      <HeaderCtas isLoggedIn={isLoggedIn} cart={cart} />
-    </header>
+      </div>
+    </div>
   );
+  
 }
 
 export function HeaderMenu({
@@ -62,8 +70,11 @@ export function HeaderMenu({
   }
 
   return (
-    <nav className={`${className} flex gap-5`} role="navigation">
+    
+    <nav className={`${className}  flex space-x-4 `} role="navigation">
+      
       {viewport === 'mobile' && (
+        
         <NavLink
           end
           onClick={closeAside}
@@ -73,7 +84,9 @@ export function HeaderMenu({
         >
           Home
         </NavLink>
+       
       )}
+      
       {(menu || FALLBACK_HEADER_MENU).items.map((item) => {
         if (!item.url) return null;
 
@@ -86,7 +99,7 @@ export function HeaderMenu({
             : item.url;
         return (
           <NavLink
-            className="header-menu-item"
+            className="header-menu-item border-2 border-red-100"
             end
             key={item.id}
             onClick={closeAside}
@@ -99,7 +112,9 @@ export function HeaderMenu({
         );
       })}
     </nav>
+   
   );
+  
 }
 
 function HeaderCtas({
@@ -230,3 +245,4 @@ function activeLinkStyle({
     color: isPending ? 'grey' : 'black',
   };
 }
+

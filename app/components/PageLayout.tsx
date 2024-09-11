@@ -13,7 +13,7 @@ import {
   PredictiveSearchForm,
   PredictiveSearchResults,
 } from '~/components/Search';
-
+import AnnoucementBar from './AnnoucementBar';
 interface PageLayoutProps {
   cart: Promise<CartApiQueryFragment | null>;
   footer: Promise<FooterQuery | null>;
@@ -32,6 +32,9 @@ export function PageLayout({
   publicStoreDomain,
 }: PageLayoutProps) {
   return (
+
+    <>
+    <AnnoucementBar />
     <Aside.Provider>
       <div className="flex gap-4">
         {header && (
@@ -56,6 +59,7 @@ export function PageLayout({
         publicStoreDomain={publicStoreDomain}
       />
     </Aside.Provider>
+    </>
   );
 }
 
